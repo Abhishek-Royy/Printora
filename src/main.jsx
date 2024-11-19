@@ -7,8 +7,8 @@ import ShopContextProvider from "./context/Context.jsx";
 
 createRoot(document.getElementById("root")).render(
   <ShopContextProvider>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ShopContextProvider>
 );
