@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { IoSearch } from "react-icons/io5";
+import { RiAccountCircleFill } from "react-icons/ri";
 import { FaCartPlus } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -13,17 +13,14 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { id: 1, text: "Home", route: "/" },
-    { id: 2, text: "About", route: "/about" },
-    { id: 3, text: "Login", route: "/login" },
-    { id: 4, text: "Cart", route: "/cart", icon: <FaCartPlus /> },
+    { id: 1, route: "/login" ,icon:<RiAccountCircleFill />},
+    { id: 2, route: "/cart", icon: <FaCartPlus /> },
   ];
 
   const variants = {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "100%" },
   };
-
 
   return (
     <div
@@ -36,27 +33,31 @@ const Navbar = () => {
           src="https://printora.pl/wp-content/uploads/2024/10/cropped-printora_logo-2.png"
           alt="Web-logo"
         /> */}
-        <h2 className="font-bold text-2xl text-[#207BB4]">PRINTORA</h2>
+        <h2 className="font-bold text-2xl text-[#242424]">PRINTORA</h2>
       </Link>
 
-      {/* Search button */}
-      <NavLink to="/search">
-        <div className="flex items-center justify-center font-medium hover:text-[#FC811B] cursor-pointer text-lg gap-3">
-          <IoSearch />
-          <p>Search</p>
-        </div>
-      </NavLink>
+      <div className="hidden md:flex items-center gap-5">
+        <NavLink to="/oversize-tees" className="flex items-center text-lg">
+          OverSize Tees
+        </NavLink>
+        <NavLink to="/graphics-tees" className="flex items-center text-lg">
+          Graphics Tees
+        </NavLink>
+        <NavLink to="/custom-tees" className="flex items-center text-lg">
+          Custom Tees
+        </NavLink>
+      </div>
 
       {/* Desktop Navigation */}
-      <ul className="hidden md:flex items-center">
+      <ul className="flex items-center">
         {navItems.map((item) => (
           <li
             key={item.id}
-            className={`p-4 rounded-xl font-medium m-2 cursor-pointer duration-300 `}
+            className={`lg:p-4 rounded-xl font-medium lg:m-2 cursor-pointer duration-300 `}
           >
             <NavLink to={item.route} className="flex items-center text-lg">
               {item.text}
-              {item.icon && <span className="ml-2">{item.icon}</span>}
+              {item.icon && <span className="ml-2 text-3xl">{item.icon}</span>}
             </NavLink>
           </li>
         ))}
@@ -69,28 +70,42 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       <motion.ul
-      initial={false}
-      animate={nav ? "open" : "closed"}
-      variants={variants}
+        initial={false}
+        animate={nav ? "open" : "closed"}
+        variants={variants}
         className={`${
           nav ? "fixed" : "hidden"
-        } fixed md:hidden left-0 top-20 w-[100%] h-full  bg-[white] ease-linear duration-75`}
+        } fixed md:hidden left-0 top-20 w-[100%] h-full bg-white shadow-lg rounded-lg`}
       >
-        {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-10 text-center border-b flex items-center justify-center rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black text-black cursor-pointer "
+        <li className="p-6 text-center space-y-4">
+          <NavLink
+            onClick={() => {
+              setNav(false);
+            }}
+            to="/oversize-tees"
+            className="block text-3xl font-normal text-black  rounded-xl py-7 "
           >
-            <NavLink
-              to={item.route}
-              className="flex items-center text-center text-3xl"
-              onClick={() => setNav(false)} // Close nav on mobile item click
-            >
-              {item.text}
-              {item.icon && <span className="ml-2">{item.icon}</span>}
-            </NavLink>
-          </li>
-        ))}
+            OverSize Tees
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              setNav(false);
+            }}
+            to="/graphics-tees"
+            className="block text-3xl font-normal text-black  rounded-xl py-7 "
+          >
+            Graphics Tees
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              setNav(false);
+            }}
+            to="/custom-tees"
+            className="block text-3xl font-normal text-black  rounded-xl py-7 "
+          >
+            Custom Tees
+          </NavLink>
+        </li>
       </motion.ul>
     </div>
   );
